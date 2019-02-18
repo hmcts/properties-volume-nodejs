@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- node
+script:
+- yarn check --integrity
+- yarn lint
+- yarn build
+- yarn test
+- yarn coverage
+after_success:
+- yarn test:codacy-upload
+- yarn test:codecov-upload
+deploy:
+  provider: npm
+  email: jenkins-reform@hmcts.net
+  skip_cleanup: true
+  api_key:
+    secure: l2TkHlDUHldNF1xb1sSpgIZEYjGYGNTfYyeSTTv7inYC5Krw1mO/C2I3Zx2ZjKxT3qc1WjYBkxrBbtNg7bnetSS0Wz0E/Pa4ugRY0DZmGXggCjyikmwR1Fk5ovR3flBw9vfrdxN8zfRmqrWbLTKNvu4iFX7EuG5y4p2HfwUEpfNRR+visu9QZ3kUO7jmgG8VXHZNb6QKTJhe9zRT78OmuR/v1wydVGqYuA+MdGsxCMZ5Hez4YsLRSunBYb5fWDQ1XGl1+/G8obvzCWyopn+mYCPpwvW5BDyl1BLQMjfqNv5mnPBtP1SXKdLmwPNR58Te2XEnWbC5jfoc6VjZVZQ6Zd9RnW/68B4HmEWQxe14cPNOjrC8e8jN2lQPoBgC8xCCCK2kfDTptYj+SckguOYL1pHfIEy5FJrnhJUvZrXiI5iHG3CVWjGDXudeg9/Aa4FP0IIp4wnzWSi5zNflS7gnj8XZc0wI0BsytTQjMx6pQye3aHCE8mBax/tyLNO98d9h9BO5TMoBlU6Q5ZSMnyUD85tOIRxynMdAqNnoJ99zUCQDVnYZFGqlwtOMKdXy/N4OIX/1aGu7DnjQJOur+/XCqNT3xMtxhCCGQ5HSdt91c5lwf6sfYicDeoWVV9XF1hxBST0hHmR4Rx8tQlBLiOQvgjWgkkrk46x1cbh+dG8hUF4=
+  on:
+    tags: true
+    repo: hmcts/flexvolume-nodejs

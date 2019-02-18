@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": [
+      "es6",
+      "es2016.array.include",
+      "es2017.object",
+      "dom"
+    ],
+    "target": "es2017",
+    "strict": true,
+    "outDir": "../lib",
+    "baseUrl": "src" ,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "inlineSourceMap": true,
+
+  },
+  "typeRoots": [
+    "./node_modules/@types",
+    "./types"
+  ]
+}
