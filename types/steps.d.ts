@@ -97,6 +97,6 @@ declare namespace CodeceptJS {
   }
 }
 
-declare module "codeceptjs" {
+declare module 'codeceptjs' {
     export = CodeceptJS;
 }
