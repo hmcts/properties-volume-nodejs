@@ -1,8 +1,7 @@
-import { Properties } from "../src";
+import { Properties } from '../src';
 
-describe("Azure flex vault module should start up", () => {
-  test("should start up ", () => {
-      Properties.configure();
-    }
-  );
+describe('Azure flex properties module should start up', () => {
+  test('should start up', () => {
+    Properties.configure();
+  });
 });
