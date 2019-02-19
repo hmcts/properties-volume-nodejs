@@ -9,7 +9,7 @@
 Please remove this line and everything above and fill the following sections:
 
 -->
-### JIRA link (if applicable) ###
+### JIRA link <!--(if applicable)--> ###
 
 ### Change description ###
 <!-- Include what your change is here, any testing you have done, etc -->
