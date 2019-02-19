@@ -1,9 +1,9 @@
-import { Logger } from '@hmcts/nodejs-logging';
+import { Logger } from '@hmcts/nodejs-logging'
 
-const logger = Logger.getLogger('applicationRunner');
+const logger = Logger.getLogger('applicationRunner')
 
 export class Properties {
   public static configure (): void {
-    logger.info('Reading Secrets');
+    logger.info('Reading Secrets')
   }
 }
