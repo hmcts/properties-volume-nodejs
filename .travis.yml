@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+- node
+script:
+- yarn check --integrity
+- yarn lint
+- yarn build
+- yarn test
+- yarn coverage
+after_success:
+- yarn test:codacy-upload
+- yarn test:codecov-upload
+deploy:
+  provider: npm
+  email: jenkins-reform@hmcts.net
+  api_key:
+    secure: tfdiIx/3HDAYDOI9iBHSmBHNd8Axeul4H8daGEEmnXTsCWmIBmnZ+DxIMajwgQG8KmIJD3cRdcQhJhQa6PAsxBrXA46E9J1dum+OoqD5u9tBt3aAIsyOxAPnkM0e7CZC+N7fu78Gpohu8VJ5NfmMIg6EjggwELtAjjH3/WbFdoJqefnvgCLHZIfZLtj/74GlOH9sIII20ZlY7BWXACqsHmSG0ZMr2A6Qtfi4xn5Erlx2P9+BJpHX6P8mstILjbpmWqJiV5CSnjyYVvzI9237UnMfWJOBzaQzvyji2SGSduLoHLu7u10cDqbnTRc8KNHdi6vnXKD8BCU4mKLelqxR1YO0aGsNW/mB1Znc7GveWC0JSOcGThke2TduF5cKdz5ziAjkhIjp+Bjd4Jr56Ja8BAfR/Ah0Z9c87ZkPDTwM0OZDLgExj7eTaCY7XlQF5ZS01HPrRi6m6m/Gy6Kw0Kzo/micRJjUfr/BTXAS9mg2k8wPyR22ja3UgxpOwWnk6DFlBbpKTK0x0XYqickfLLhszVxZbEQBPHh4qbNvG6K4G/FlKeL2j2tNjr8GjODFTBPqKc4PKojHmCgZKhgUZzMexu+xsVthTYu372Hxkg/Mtn5at2J/wy0crS+DNNDBgIPaIRcouyovR3JOM9JiKrVNpyQjcJc2IiwyWH6jXcdw8RQ=
+  on:
+    tags: true
+    repo: hmcts/properties-volume-nodejs
