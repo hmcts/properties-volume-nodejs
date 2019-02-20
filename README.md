@@ -16,17 +16,17 @@ This module is to incorporate the integration of the Azure key-vault flex volume
 
 ## Quick start
 ```bash
-$ yarn add @hmcts/properties-volume
+yarn add @hmcts/properties-volume
 ```
 
-Typescript:
-```ts
-import { Properties  } from '@hmcts/properties-volume'
-Properties.configure()
+##Typescript
+```typescript
+import * as config from 'config'
+import * as properties from '@hmcts/properties-volume'
+properties.addTo( config )
 ```
 
-- Javascript -
-
-```js
-require('properties-volume').configure()
+##Javascript
+```javascript
+const config  = require('properties-volume').addTo( require('config') )
 ```
