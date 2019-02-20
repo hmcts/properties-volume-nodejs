@@ -1,13 +1,19 @@
 import { Logger } from '@hmcts/nodejs-logging'
-import * as _ from 'lodash'
+import merge = require('lodash.merge')
 import * as fs from 'fs'
 
 const log = Logger.getLogger('applicationRunner')
 
-export function addTo (config: any, mountPoint: fs.PathLike = '/mnt/secrets/', propertiesPrefix: string = 'propertyVolume') {
+export function addTo (config: any, mountPoint: fs.PathLike = '/mnt/secrets/') {
   log.info(`Reading properties from volume: '${mountPoint}'`)
   const properties = readVaults(mountPoint)
-  config[propertiesPrefix] = _.merge(config[propertiesPrefix] || {}, properties)
+  let path = mountPoint.toString()
+  const prefix = getPref(path)
+  config[prefix] = merge(config[prefix] || {}, properties)
+}
+
+function getPref (path: string) {
+  return path.substr(path.lastIndexOf('/') + 1)
 }
 
 function addDir (dir: string, obj: any, mountPoint: fs.PathLike): any {
