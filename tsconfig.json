@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
+    "noImplicitAny": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [

@@ -1,10 +1,10 @@
 import { Logger } from '@hmcts/nodejs-logging'
 import * as fs from 'fs'
 
-const logger = Logger.getLogger('applicationRunner')
+const log = Logger.getLogger('applicationRunner')
 
 export function addTo (config: any, mountPoint: fs.PathLike = '/mnt/secrets/', propertiesPrefix: string = 'keyVault') {
-  logger.info(`Reading properties from volume: '${mountPoint}'`)
+  log.info(`Reading properties from volume: '${mountPoint}'`)
   config[propertiesPrefix] = fs.readdirSync(mountPoint, null)
     .reduce((obj, dir) => addDir(dir, obj, mountPoint), {})
 }

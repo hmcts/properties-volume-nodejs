@@ -1,9 +1,9 @@
 import * as properties from '../src'
 import * as config from 'config'
 
-describe('Azure flex properties module should read from specified mount', () => {
+describe('Read properties from files on a mount or folder.', () => {
   test('should start have secrets read from volume', () => {
-    let config: any = {}
+    const config: any = {}
     properties.addTo(config, '__tests__/testVolume')
     expect(config['keyVault']['vaultOne']['secret-one']).toBe('vaultOne.secret-one')
     expect(config['keyVault']['vaultOne']['secret_Three']).toBe('vaultOne.secret_Three')
