@@ -14,15 +14,15 @@ function addDir (dir: string, obj: any, mountPoint: fs.PathLike): any {
   return obj
 }
 
-function addFile (values: any, file: string, mountPoint: fs.PathLike, dir: string) {
+function addFile (values: any, file: string, mountPoint: fs.PathLike, dir: string): any {
   values[file] = readFile(mountPoint, dir, file).trim()
   return values
 }
 
-function readFile (mountPoint: fs.PathLike, dir: string, file: string) {
+function readFile (mountPoint: fs.PathLike, dir: string, file: string): string {
   return fs.readFileSync(mountPoint + '/' + dir + '/' + file, 'utf8')
 }
 
-function readDirectories (mountPoint: fs.PathLike, dir: string) {
+function readDirectories (mountPoint: fs.PathLike, dir: string): string[]{
   return fs.readdirSync(mountPoint + '/' + dir)
 }
