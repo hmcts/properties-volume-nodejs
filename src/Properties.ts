@@ -1,5 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging'
-import merge = require('lodash.merge')
+import merge from 'lodash.merge'
 import * as fs from 'fs'
 
 const log = Logger.getLogger('applicationRunner')
