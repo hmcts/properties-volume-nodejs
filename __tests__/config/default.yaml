@@ -1,0 +1,11 @@
+keyVault:
+  vaultOne:
+    secret-one: "default1"
+    secret_Three: "default3"
+    secret-default: "default"
+  vaultTwo:
+    secret-one: "default1"
+    secret_Three: "default3"
+    secret-default: "default2"
+  someOther_vault:
+    secret-default: "someother"
