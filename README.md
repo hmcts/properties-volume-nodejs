@@ -19,13 +19,14 @@ $ yarn add @hmcts/properties-volume
 ```
 
 Typescript:
-```ts
-import { Properties  } from '@hmcts/properties-volume'
-Properties.configure()
+```typescript
+import * as config from 'config'
+import * as volumeProperties from '@hmcts/properties-volume'
+volumeProperties.addTo(config)
 ```
 
 - Javascript -
 
-```js
-require('properties-volume').configure()
+```javascript
+config = require('properties-volume').addTo(require('config'))
 ```

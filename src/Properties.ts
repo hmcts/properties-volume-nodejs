@@ -7,12 +7,12 @@ const log = Logger.getLogger('applicationRunner')
 export function addTo (config: any, mountPoint: fs.PathLike = '/mnt/secrets/') {
   log.info(`Reading properties from volume: '${mountPoint}'`)
   const properties = readVaults(mountPoint)
-  let path = mountPoint.toString()
-  const prefix = getPref(path)
+  const prefix = getPrefix(mountPoint.toString())
   config[prefix] = merge(config[prefix] || {}, properties)
+  return config
 }
 
-function getPref (path: string) {
+function getPrefix (path: string) {
   return path.substr(path.lastIndexOf('/') + 1)
 }
 

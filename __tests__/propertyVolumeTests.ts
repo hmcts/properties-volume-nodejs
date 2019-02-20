@@ -1,18 +1,18 @@
 import * as properties from '../src'
-
-process.env['NODE_CONFIG_DIR'] = __dirname + '/config/'
 import * as config from 'config'
+
 properties.addTo(config, '__tests__/testVolumes/testVol')
 properties.addTo(config, '__tests__/testVolumes/secrets')
 
 describe('Read properties from files on a mount or folder.', () => {
   test('should start have secrets read from volume', () => {
-    const config: any = {}
-    properties.addTo(config, '__tests__/testVolumes/secrets')
-    expect(config['secrets']['vaultOne']['secret-one']).toBe('vaultOne.secret-one')
-    expect(config['secrets']['vaultOne']['secret_Three']).toBe('vaultOne.secret_Three')
-    expect(config['secrets']['vaultTwo']['secret-one']).toBe('vaultTwo.secret-one')
-    expect(config['secrets']['vaultTwo']['secretTwo']).toBe('vaultTwo.secretTwo')
+    const testConfig: any = {}
+    const theConfig = properties.addTo(testConfig, '__tests__/testVolumes/secrets')
+    expect(testConfig['secrets']['vaultOne']['secret-one']).toBe('vaultOne.secret-one')
+    expect(testConfig['secrets']['vaultOne']['secret_Three']).toBe('vaultOne.secret_Three')
+    expect(testConfig['secrets']['vaultTwo']['secret-one']).toBe('vaultTwo.secret-one')
+    expect(testConfig['secrets']['vaultTwo']['secretTwo']).toBe('vaultTwo.secretTwo')
+    expect(theConfig).toBe(testConfig)
   })
 
   test('should be able to use actual config module as expected', () => {
