@@ -21,10 +21,11 @@
   },
   "dependencies": {
     "@hmcts/nodejs-logging": "^3.0.0",
-    "@types/dotenv": "^6.1.0",
+    "@types/lodash": "^4.14.121",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
-    "yarn": "^1.13.0"
+    "yarn": "^1.13.0",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "@types/config": "^0.0.34",
@@ -35,7 +36,6 @@
     "@types/supertest": "^2.0.4",
     "jest":"21.1.0",
     "config": "^3.0.1",
-    "dotenv": "^6.2.0",
     "nock": "^9.1.4",
     "prettier": "^1.5.2",
     "rimraf": "^2.0.0",
