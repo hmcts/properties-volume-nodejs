@@ -1,3 +1,5 @@
+process.env['NODE_CONFIG_DIR'] = __dirname + '/config/'
+
 import * as properties from '../src'
 import * as config from 'config'
 
@@ -28,7 +30,7 @@ describe('Read properties from files on a mount or folder.', () => {
     expect(config.get('testVol.vaultTwo.secret-one')).toBe('vaultTwo.secret-one')
   })
 
-  test('should have defaults (existing properties if not overridden', () => {
+  test('should have defaults (existing properties) if not overridden', () => {
     expect(config.get('secrets.vaultOne.secret-default')).toBe('default')
     expect(config.get('secrets.vaultTwo.secret-default')).toBe('default2')
     expect(config.get('secrets.someOther_vault.secret-default')).toBe('someother')
