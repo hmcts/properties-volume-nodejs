@@ -23,6 +23,6 @@ function readFile (mountPoint: fs.PathLike, dir: string, file: string): string {
   return fs.readFileSync(mountPoint + '/' + dir + '/' + file, 'utf8')
 }
 
-function readDirectories (mountPoint: fs.PathLike, dir: string): string[]{
+function readDirectories (mountPoint: fs.PathLike, dir: string): string[] {
   return fs.readdirSync(mountPoint + '/' + dir)
 }
