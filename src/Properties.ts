@@ -4,7 +4,7 @@ import * as fs from 'fs'
 
 const log = Logger.getLogger('applicationRunner')
 
-export function addTo (config: any, mountPoint: fs.PathLike = '/mnt/secrets/', propertiesPrefix: string = 'keyVault') {
+export function addTo (config: any, mountPoint: fs.PathLike = '/mnt/secrets/', propertiesPrefix: string = 'propertyVolume') {
   log.info(`Reading properties from volume: '${mountPoint}'`)
   const properties = readVaults(mountPoint)
   config[propertiesPrefix] = _.merge(config[propertiesPrefix] || {}, properties)

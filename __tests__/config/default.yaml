@@ -1,4 +1,4 @@
-keyVault:
+propertyVolume:
   vaultOne:
     secret-one: "default1"
     secret_Three: "default3"
