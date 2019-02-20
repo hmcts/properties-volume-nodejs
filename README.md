@@ -10,23 +10,47 @@
 
 This module is to incorporate the integration of the Azure key-vault flex volume to node properties.
 
-
 # Usage
+This module adds the properties volume entries into the configuration object from `'config'`
+We use the default mount point of `/mnt/` volume, which happens exposes the key vault in [chart-nodejs](https://github.com/hmcts/chart-nodejs).
+
+We use the last folder of the mount point, _secrets_, to map the properties into the configuration. 
+
+Below is an example:
+ ```json
+{
+  "secrets": {
+    "VAULT": {
+      "secretOne": "VALUE",
+      "some-secret-two": "VALUE"
+    },
+    "VAULT2": {
+      "secretOne": "VALUE",
+      "some-secret-two": "VALUE"
+    }
+  }
+}
+```
+
+**NOTE**
+- The names are exactly as they are in on the volume or _key vault_. 
+- **Defaults** can be added in your local configuration using the same object structure. I.E. `secrets.XXX.yyyy'
+- For **testing** You can load these from a specified folder for testing i.e. `addTo( config, 'sometesting/folder/secrets')`.
+- If you wish to use **multiple** property volumes you can change the mount point and the last folder will be used as the property prefix. I.E you can use `mountPoint="/mnt/certs/"` and this will put the properties in `certs.folder.xxx`
 
 ## Quick start
 ```bash
 $ yarn add @hmcts/properties-volume
 ```
 
-Typescript:
+###Typescript
 ```typescript
 import * as config from 'config'
-import * as volumeProperties from '@hmcts/properties-volume'
-volumeProperties.addTo(config)
+import * as propertiesVolume from '@hmcts/properties-volume'
+propertiesVolume.addTo(config)
 ```
 
-- Javascript -
-
+###Javascript
 ```javascript
 config = require('properties-volume').addTo(require('config'))
 ```
