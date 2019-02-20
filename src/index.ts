@@ -1,1 +1,1 @@
-export { Properties } from './Properties'
+export { addTo } from './Properties'

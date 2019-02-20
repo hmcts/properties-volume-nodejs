@@ -20,9 +20,9 @@
     "watch:test": "jest --watch"
   },
   "dependencies": {
+    "@hmcts/nodejs-logging": "^3.0.0",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
-    "@hmcts/nodejs-logging": "^3.0.0",
     "yarn": "^1.13.0"
   },
   "devDependencies": {
@@ -31,6 +31,8 @@
     "@types/node": "^10.12.26",
     "@types/request-promise-native": "^1.0.10",
     "@types/supertest": "^2.0.4",
+    "@types/config": "^0.0.34",
+    "config": "^3.0.1",
     "jest": "^21.2.1",
     "nock": "^9.1.4",
     "prettier": "^1.5.2",
@@ -43,8 +45,7 @@
     "tslint-config-prettier": "^1.1.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^2.3.0",
-    "winston": "^2.4.1",
-    "config": "^3.0.1"
+    "winston": "^2.4.1"
   },
   "engines": {
     "node": ">=10.0.0"

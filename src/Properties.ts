@@ -1,32 +1,28 @@
-// import { Logger } from '@hmcts/nodejs-logging'
-import { PathLike } from 'fs'
+import { Logger } from '@hmcts/nodejs-logging'
 import * as fs from 'fs'
 
-// const logger = Logger.getLogger('applicationRunner')
+const logger = Logger.getLogger('applicationRunner')
 
-export class Properties {
-  public static addTo (config: any, mountPoint: PathLike = '/mnt/secrets/') {
-    // @ts-ignore
-    let properties = fs.readdirSync(mountPoint, null)
-      .reduce((obj, dir) => this.addDir(dir, obj, mountPoint), {})
-    Object.assign(config, properties)
-  }
+export function addTo (config: any, mountPoint: fs.PathLike = '/mnt/secrets/', propertiesPrefix: string = 'keyVault') {
+  logger.info(`Reading properties from volume: '${mountPoint}'`)
+  config[propertiesPrefix] = fs.readdirSync(mountPoint, null)
+    .reduce((obj, dir) => addDir(dir, obj, mountPoint), {})
+}
 
-  private static addDir (dir: string, obj: any, mountPoint: PathLike): any {
-    obj[dir] = this.readDirectories(mountPoint, dir).reduce((values, file) => this.addFile(values, file, mountPoint, dir), {})
-    return obj
-  }
+function addDir (dir: string, obj: any, mountPoint: fs.PathLike): any {
+  obj[dir] = readDirectories(mountPoint, dir).reduce((values, file) => addFile(values, file, mountPoint, dir), {})
+  return obj
+}
 
-  private static addFile (values: any, file: string, mountPoint: PathLike, dir: string) {
-    values[file] = this.readFile(mountPoint, dir, file).trim()
-    return values
-  }
+function addFile (values: any, file: string, mountPoint: fs.PathLike, dir: string) {
+  values[file] = readFile(mountPoint, dir, file).trim()
+  return values
+}
 
-  private static readFile (mountPoint: PathLike, dir: string, file: string) {
-    return fs.readFileSync(mountPoint + '/' + dir + '/' + file,'utf8')
-  }
+function readFile (mountPoint: fs.PathLike, dir: string, file: string) {
+  return fs.readFileSync(mountPoint + '/' + dir + '/' + file, 'utf8')
+}
 
-  private static readDirectories (mountPoint: PathLike, dir: string) {
-    return fs.readdirSync(mountPoint + '/' + dir)
-  }
+function readDirectories (mountPoint: fs.PathLike, dir: string) {
+  return fs.readdirSync(mountPoint + '/' + dir)
 }
