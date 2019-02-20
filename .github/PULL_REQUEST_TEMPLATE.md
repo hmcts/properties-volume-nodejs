@@ -14,7 +14,7 @@ Please remove this line and everything above and fill the following sections:
 ### Change description ###
 <!-- Include what your change is here, any testing you have done, etc -->
 
-**Does this PR introduce a breaking change?** <!--(check one with "x") -->
+<br>**Does this PR introduce a breaking change?** <!--(check one with "x") -->
 ```
 [ ] Yes
 [ ] No
