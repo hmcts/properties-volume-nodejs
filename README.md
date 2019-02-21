@@ -10,22 +10,78 @@
 
 This module is to incorporate the integration of the Azure key-vault flex volume to node properties.
 
-
 # Usage
+This module adds the properties volume entries into the configuration object from `'config'`
+We use the default mount point of `/mnt/` volume, which happens exposes the key vault in [chart-nodejs](https://github.com/hmcts/chart-nodejs).
+
+We use the last folder of the mount point, _secrets_, to map the properties into the configuration. 
+
+Below is an example:
+ ```json
+{
+  "secrets": {
+    "VAULT": {
+      "secretOne": "VALUE",
+      "some-secret-two": "VALUE"
+    },
+    "VAULT2": {
+      "secretOne": "VALUE",
+      "some-secret-two": "VALUE"
+    }
+  }
+}
+```
+
+**NOTE**
+- The property **names** are not sanitised and are an exact copy from the file names on volume. This means when using 
+  the hmcts/nodejs helm chart the property naming is exactly the same as those in the _key vault_.
+  
+- Application property **defaults** can be added to your application configuration for the `config` package using 
+  the same object structure. 
+   
+   **e.g** To add a default for the property secrets.cmc.staff-email we would add the following to the configuration.
+   
+   in JSON:
+   ```json 
+   {
+     "secrets": {
+       "cmc": {
+         "staff-email": "DEFAULT_EMAIL"
+       }
+     }
+   }
+   ```
+   or in yaml
+   ```yaml
+   secrets:
+      cmc:
+        staff-email: DEFAULT_EMAIL
+ 
+   ```
+- If you have the need to add a **test** or add **multiple** property volumes in one application you can 
+  override the volume mount point. To do this we can supply a value for the defaulted volume folder in the api
+  i.e `addTo( config, 'some/other/folder/secrets')`. 
+  
+- The **last folder name** is used as the prefix for the properties in the configuration 
+  e.g. `/mnt/secrets` the properties start with `secrets`,  `/mnt/certs` the properties start with `certs`.
+   
+- If you mount volumes with the same last folder name e.g `/mnt/super/secrets` and `/mnt/silly/secrets`
+  the properties will be fully merged together into the configuration object under `secrets` and the last property 
+  volume that is merged in will override any properties with the same name.
 
 ## Quick start
 ```bash
 $ yarn add @hmcts/properties-volume
 ```
 
-Typescript:
-```ts
-import { Properties  } from '@hmcts/properties-volume'
-Properties.configure()
+### Typescript
+```typescript
+import * as config from 'config'
+import * as propertiesVolume from '@hmcts/properties-volume'
+propertiesVolume.addTo(config)
 ```
 
-- Javascript -
-
-```js
-require('properties-volume').configure()
+### Javascript
+```javascript
+config = require('properties-volume').addTo(require('config'))
 ```

@@ -1,1 +1,1 @@
-export { Properties } from './Configure'
+export { addTo } from './Properties'

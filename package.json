@@ -20,18 +20,18 @@
     "watch:test": "jest --watch"
   },
   "dependencies": {
-    "request": "^2.83.0",
-    "request-promise-native": "^1.0.5",
-    "yarn": "^1.13.0"
+    "@hmcts/nodejs-logging": "^3.0.0",
+    "@types/lodash.merge": "^4.6.5",
+    "yarn": "^1.13.0",
+    "lodash.merge": "^4.6.1"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.8",
-    "@types/nock": "^8.2.1",
-    "@types/node": "^8.0.0",
-    "@types/request-promise-native": "^1.0.10",
+    "@types/config": "^0.0.34",
+    "@types/jest": "^21.0.0",
+    "@types/node": "^10.12.26",
     "@types/supertest": "^2.0.4",
-    "jest": "^21.2.1",
-    "nock": "^9.1.4",
+    "jest":"21.1.0",
+    "config": "^3.0.1",
     "prettier": "^1.5.2",
     "rimraf": "^2.0.0",
     "sinon": "^4.1.2",
@@ -42,11 +42,10 @@
     "tslint-config-prettier": "^1.1.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^2.3.0",
-    "winston": "^2.4.1",
-    "@hmcts/nodejs-logging": "^3.0.0"
+    "winston": "^2.4.1"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "jest": {
     "transform": {
