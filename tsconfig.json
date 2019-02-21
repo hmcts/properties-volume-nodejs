@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
     "alwaysStrict": true,
     "declaration": true,
     "skipLibCheck": true,
@@ -21,7 +22,6 @@
     "preserveConstEnums": true,
     "removeComments": true,
     "inlineSourceMap": true,
-
   },
   "typeRoots": [
     "./node_modules/@types",
