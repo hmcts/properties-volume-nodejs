@@ -33,24 +33,55 @@ Below is an example:
 ```
 
 **NOTE**
-- The names are exactly as they are in on the volume or _key vault_. 
-- **Defaults** can be added in your local configuration using the same object structure. I.E. `secrets.XXX.yyyy'
-- For **testing** You can load these from a specified folder for testing i.e. `addTo( config, 'sometesting/folder/secrets')`.
-- If you wish to use **multiple** property volumes you can change the mount point and the last folder will be used as the property prefix. I.E you can use `mountPoint="/mnt/certs/"` and this will put the properties in `certs.folder.xxx`
+- The property **names** are not sanitised and are an exact copy from the file names on volume. This means when using 
+  the hmcts/nodejs helm chart the property naming is exactly the same as those in the _key vault_.
+  
+- Application property **defaults** can be added to your application configuration for the `config` package using 
+  the same object structure. 
+   
+   **e.g** To add a default for the property secrets.cmc.staff-email we would add the following to the configuration.
+   
+   in JSON:
+   ```json 
+   {
+     "secrets": {
+       "cmc": {
+         "staff-email": "DEFAULT_EMAIL"
+       }
+     }
+   }
+   ```
+   or in yaml
+   ```yaml
+   secrets:
+      cmc:
+        staff-email: DEFAULT_EMAIL
+ 
+   ```
+- If you have the need to add a **test** or add **multiple** property volumes in one application you can 
+  override the volume mount point. To do this we can supply a value for the defaulted volume folder in the api
+  i.e `addTo( config, 'some/other/folder/secrets')`. 
+  
+- The **last folder name** is used as the prefix for the properties in the configuration 
+  e.g. `/mnt/secrets` the properties start with `secrets`,  `/mnt/certs` the properties start with `certs`.
+   
+- If you mount volumes with the same last folder name e.g `/mnt/super/secrets` and `/mnt/silly/secrets`
+  the properties will be fully merged together into the configuration object under `secrets` and the last property 
+  volume that is merged in will override any properties with the same name.
 
 ## Quick start
 ```bash
 $ yarn add @hmcts/properties-volume
 ```
 
-###Typescript
+### Typescript
 ```typescript
 import * as config from 'config'
 import * as propertiesVolume from '@hmcts/properties-volume'
 propertiesVolume.addTo(config)
 ```
 
-###Javascript
+### Javascript
 ```javascript
 config = require('properties-volume').addTo(require('config'))
 ```
