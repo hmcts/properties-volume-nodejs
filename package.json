@@ -13,7 +13,7 @@
     "clean": "rimraf lib && rimraf coverage",
     "lint": "tsc --noEmit && tslint --project tsconfig.json",
     "prebuildOnly": "yarn clean && yarn format && yarn lint && echo Using TypeScript && tsc --version",
-    "build": "rimraf lib && yarn install && tsc --pretty",
+    "build": "rimraf lib && tsc --pretty",
     "test": "jest",
     "coverage": "jest --coverage",
     "watch": "yarn build --watch",
