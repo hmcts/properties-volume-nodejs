@@ -7,13 +7,13 @@
   "files": [
     "lib"
   ],
-  "main": "lib/src/index.js",
-  "typings": "lib/src/index.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
     "lint": "tsc --noEmit && tslint --project tsconfig.json",
     "prebuildOnly": "yarn clean && yarn format && yarn lint && echo Using TypeScript && tsc --version",
-    "build": "tsc",
+    "build": "tsc --pretty",
     "test": "jest",
     "coverage": "jest --coverage",
     "watch": "yarn build --watch",
@@ -25,7 +25,6 @@
   "dependencies": {
     "@hmcts/nodejs-logging": "^3.0.0",
     "@types/lodash.merge": "^4.6.5",
-    "yarn": "^1.13.0",
     "lodash.merge": "^4.6.1"
   },
   "devDependencies": {
@@ -33,6 +32,7 @@
     "@types/jest": "^21.0.0",
     "@types/node": "^10.12.26",
     "@types/supertest": "^2.0.4",
+    "yarn": "^1.13.0",
     "jest":"21.1.0",
     "config": "^3.0.1",
     "prettier": "^1.5.2",
