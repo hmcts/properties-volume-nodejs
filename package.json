@@ -7,13 +7,13 @@
   "files": [
     "lib"
   ],
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "lib/src/index.js",
+  "typings": "lib/src/index.d.ts",
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
     "lint": "tsc --noEmit && tslint --project tsconfig.json",
     "prebuildOnly": "yarn clean && yarn format && yarn lint && echo Using TypeScript && tsc --version",
-    "build": "rimraf lib && tsc --pretty",
+    "build": "tsc",
     "test": "jest",
     "coverage": "jest --coverage",
     "watch": "yarn build --watch",

@@ -17,7 +17,6 @@
     "target": "es2017",
     "strict": true,
     "outDir": "./lib",
-    "baseUrl": "src" ,
     "preserveConstEnums": true,
     "removeComments": true,
     "inlineSourceMap": true,
