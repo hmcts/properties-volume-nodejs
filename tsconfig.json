@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
     "alwaysStrict": true,
     "declaration": true,
     "skipLibCheck": true,
@@ -17,12 +16,13 @@
     ],
     "target": "es2017",
     "strict": true,
-    "outDir": "../lib",
+    "outDir": "./lib",
     "baseUrl": "src" ,
     "preserveConstEnums": true,
     "removeComments": true,
     "inlineSourceMap": true,
   },
+  "exclude": ["node_modules", "**/__tests__/*"],
   "typeRoots": [
     "./node_modules/@types",
     "./types"
