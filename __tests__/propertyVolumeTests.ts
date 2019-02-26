@@ -9,7 +9,7 @@ properties.addTo(config, {mountPoint: '__tests__/testVolumes/secrets'})
 describe('Read properties from files on a mount or folder.', () => {
   test('should start with secrets read from volume', () => {
     const testConfig: any = {}
-    const theConfig = properties.addTo(testConfig, {mountPoint: '__tests__/testVolumes/secrets' })
+    const theConfig = properties.addTo(testConfig, { mountPoint: '__tests__/testVolumes/secrets' })
     expect(testConfig['secrets']['vaultOne']['secret-one']).toBe('vaultOne.secret-one')
     expect(testConfig['secrets']['vaultOne']['secret_Three']).toBe('vaultOne.secret_Three')
     expect(testConfig['secrets']['vaultTwo']['secret-one']).toBe('vaultTwo.secret-one')
@@ -37,11 +37,17 @@ describe('Read properties from files on a mount or folder.', () => {
   })
 
   test('should throw correct exception if /mnt/secrets does not exist', () => {
-    expect(() => properties.addTo(config)).toThrowError('ENOENT: no such file or directory, scandir \'/mnt/secrets/\'')
+    expect(() => properties.addTo(config, { failOnError: true }))
+      .toThrowError("properties-volume failed with:'Error: ENOENT: no such file or directory, scandir '/mnt/secrets/'")
   })
 
-  test('should throw error if does not have a folder in the mount Point', () => {
-    expect(() => properties.addTo(config,'/')).toThrowError('Invalid properties mount point supplied: \'/\'')
+  test('should not throw exception if failOnError is false', () => {
+    properties.addTo(config, { failOnError: false })
+  })
+
+  test('should throw error if does not have a folder in the mountPoint path', () => {
+    expect(() => properties.addTo(config,{ mountPoint: '/', failOnError: true }))
+      .toThrowError('Invalid properties mount point supplied: \'/\'')
   })
 
 })
