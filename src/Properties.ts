@@ -25,7 +25,7 @@ export function addTo (config: any, givenOptions?: Options) {
     if (failOnError) {
       throw Error(`properties-volume failed with:'${error}`)
     }
-    log.info(`Count not read properties from volume: '${mountPoint}' due to '${error}'`)
+    log.info(`Could not read properties from volume: '${mountPoint}' due to '${error}'`)
   }
   return config
 }
