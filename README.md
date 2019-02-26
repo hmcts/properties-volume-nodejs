@@ -60,7 +60,7 @@ Below is an example:
    ```
 - If you have the need to add a **test** or add **multiple** property volumes in one application you can 
   override the volume mount point. To do this we can supply a value for the defaulted volume folder in the api
-  i.e `addTo( config, 'some/other/folder/secrets')`. 
+  i.e `addTo( config, {mountPoint:'some/other/folder/secrets'})`. 
   
 - The **last folder name** is used as the prefix for the properties in the configuration 
   e.g. `/mnt/secrets` the properties start with `secrets`,  `/mnt/certs` the properties start with `certs`.
@@ -68,7 +68,7 @@ Below is an example:
 - If you mount volumes with the same last folder name e.g `/mnt/super/secrets` and `/mnt/silly/secrets`
   the properties will be fully merged together into the configuration object under `secrets` and the last property 
   volume that is merged in will override any properties with the same name.
-
+ 
 ## Quick start
 ```bash
 $ yarn add @hmcts/properties-volume
@@ -83,5 +83,17 @@ propertiesVolume.addTo(config)
 
 ### Javascript
 ```javascript
-config = require('properties-volume').addTo(require('config'))
+config = require('@hmcts/properties-volume').addTo(require('config'))
 ```
+ 
+### Options
+The properties volume can be supplied with a couple of options via a _js_ like options object.
+e.g.
+```javascript
+const config = require('@hmcts/properties-volume').addTo(require('config'),{mountPoint:'some/properties/mount/point'})
+```
+
+| Option | Description | Default | 
+| ------ | ----------- | ------- |
+| `mountPoint` | the folder where the properties volume exists. | `/mnt/secrets/`| 
+| `failOnError` | Should this module throw an exception if mount does not exist or there is an error reading the properties | `false` | 
