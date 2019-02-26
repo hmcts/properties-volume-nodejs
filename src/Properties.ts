@@ -2,13 +2,9 @@ import { Logger } from '@hmcts/nodejs-logging'
 import merge = require('lodash.merge')
 import * as path from 'path'
 import * as fs from 'fs'
+import { Options } from './index'
 
 const log = Logger.getLogger('applicationRunner')
-
-interface Options {
-  mountPoint?: fs.PathLike
-  failOnError?: boolean
-}
 
 const defaultOptions: Options = {
   mountPoint: '/mnt/secrets/',
@@ -20,7 +16,7 @@ export function addTo (config: any, givenOptions?: Options) {
   const mountPoint: fs.PathLike = options.mountPoint!
   const failOnError: boolean = options.failOnError!
 
-  log.info(`Reading properties from volume: '${mountPoint}'`)
+  log.info(`Attempting to read properties from volume: '${mountPoint}'`)
   try {
     const prefix = getPrefix(mountPoint.toString())
     const properties = readVaults(mountPoint)
@@ -29,7 +25,7 @@ export function addTo (config: any, givenOptions?: Options) {
     if (failOnError) {
       throw Error(`properties-volume failed with:'${error}`)
     }
-    log.info(`Reading properties from volume: '${mountPoint}' FAILED with '${error}'`)
+    log.info(`Count not read properties from volume: '${mountPoint}' due to '${error}'`)
   }
   return config
 }
