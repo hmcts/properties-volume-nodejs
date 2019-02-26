@@ -3,13 +3,13 @@ process.env['NODE_CONFIG_DIR'] = __dirname + '/config/'
 import * as properties from '../src'
 import * as config from 'config'
 
-properties.addTo(config, '__tests__/testVolumes/testVol')
-properties.addTo(config, '__tests__/testVolumes/secrets')
+properties.addTo(config, {mountPoint: '__tests__/testVolumes/testVol'})
+properties.addTo(config, {mountPoint: '__tests__/testVolumes/secrets'})
 
 describe('Read properties from files on a mount or folder.', () => {
-  test('should start have secrets read from volume', () => {
+  test('should start with secrets read from volume', () => {
     const testConfig: any = {}
-    const theConfig = properties.addTo(testConfig, '__tests__/testVolumes/secrets')
+    const theConfig = properties.addTo(testConfig, {mountPoint: '__tests__/testVolumes/secrets' })
     expect(testConfig['secrets']['vaultOne']['secret-one']).toBe('vaultOne.secret-one')
     expect(testConfig['secrets']['vaultOne']['secret_Three']).toBe('vaultOne.secret_Three')
     expect(testConfig['secrets']['vaultTwo']['secret-one']).toBe('vaultTwo.secret-one')
@@ -35,5 +35,9 @@ describe('Read properties from files on a mount or folder.', () => {
     expect(config.get('secrets.vaultTwo.secret-default')).toBe('default2')
     expect(config.get('secrets.someOther_vault.secret-default')).toBe('someother')
   })
-
+  test('should have defaults (existing properties) if not overridden', () => {
+    expect(config.get('secrets.vaultOne.secret-default')).toBe('default')
+    expect(config.get('secrets.vaultTwo.secret-default')).toBe('default2')
+    expect(config.get('secrets.someOther_vault.secret-default')).toBe('someother')
+  })
 })
