@@ -1,7 +1,7 @@
 import { Logger } from '@hmcts/nodejs-logging'
 import merge = require('lodash.merge')
+import * as path from 'path'
 import * as fs from 'fs'
-import { PathLike } from 'fs'
 
 const log = Logger.getLogger('applicationRunner')
 
@@ -17,13 +17,13 @@ const defaultOptions: Options = {
 
 export function addTo (config: any, givenOptions?: Options) {
   const options: Options = merge({}, defaultOptions, givenOptions || {})
-  const mountPoint: PathLike = options.mountPoint!
+  const mountPoint: fs.PathLike = options.mountPoint!
   const failOnError: boolean = options.failOnError!
 
   log.info(`Reading properties from volume: '${mountPoint}'`)
   try {
-    const properties = readVaults(mountPoint)
     const prefix = getPrefix(mountPoint.toString())
+    const properties = readVaults(mountPoint)
     config[prefix] = merge(config[prefix] || {}, properties)
   } catch (error) {
     if (failOnError) {
@@ -34,8 +34,12 @@ export function addTo (config: any, givenOptions?: Options) {
   return config
 }
 
-function getPrefix (path: string) {
-  return path.substr(path.lastIndexOf('/') + 1)
+function getPrefix (aPath: string) {
+  const prefixFolder = path.basename(aPath)
+  if (prefixFolder.length === 0) {
+    throw new Error(`Invalid properties mount point supplied: '${aPath}'`)
+  }
+  return prefixFolder
 }
 
 function addDir (dir: string, obj: any, mountPoint: fs.PathLike): any {

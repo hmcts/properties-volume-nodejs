@@ -3,7 +3,7 @@ process.env['NODE_CONFIG_DIR'] = __dirname + '/config/'
 import * as properties from '../src'
 import * as config from 'config'
 
-properties.addTo(config, {mountPoint: '__tests__/testVolumes/testVol'})
+properties.addTo(config, {mountPoint: '__tests__/testVolumes/testVol/'})
 properties.addTo(config, {mountPoint: '__tests__/testVolumes/secrets'})
 
 describe('Read properties from files on a mount or folder.', () => {
@@ -35,9 +35,13 @@ describe('Read properties from files on a mount or folder.', () => {
     expect(config.get('secrets.vaultTwo.secret-default')).toBe('default2')
     expect(config.get('secrets.someOther_vault.secret-default')).toBe('someother')
   })
-  test('should have defaults (existing properties) if not overridden', () => {
-    expect(config.get('secrets.vaultOne.secret-default')).toBe('default')
-    expect(config.get('secrets.vaultTwo.secret-default')).toBe('default2')
-    expect(config.get('secrets.someOther_vault.secret-default')).toBe('someother')
+
+  test('should throw correct exception if /mnt/secrets does not exist', () => {
+    expect(() => properties.addTo(config)).toThrowError('ENOENT: no such file or directory, scandir \'/mnt/secrets/\'')
   })
+
+  test('should throw error if does not have a folder in the mount Point', () => {
+    expect(() => properties.addTo(config,'/')).toThrowError('Invalid properties mount point supplied: \'/\'')
+  })
+
 })
