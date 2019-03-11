@@ -1,8 +1,8 @@
 import { Logger } from '@hmcts/nodejs-logging'
-import merge = require('lodash.merge')
 import * as path from 'path'
 import * as fs from 'fs'
 import { Options } from './index'
+let _ = require('lodash')
 
 const log = Logger.getLogger('applicationRunner')
 
@@ -12,7 +12,7 @@ const defaultOptions: Options = {
 }
 
 export function addTo (config: any, givenOptions?: Options) {
-  const options: Options = merge({}, defaultOptions, givenOptions || {})
+  const options: Options = _.merge({}, defaultOptions, givenOptions || {})
   const mountPoint: fs.PathLike = options.mountPoint!
   const failOnError: boolean = options.failOnError!
 
@@ -20,7 +20,7 @@ export function addTo (config: any, givenOptions?: Options) {
   try {
     const prefix = getPrefix(mountPoint.toString())
     const properties = readVaults(mountPoint)
-    config[prefix] = merge(config[prefix] || {}, properties)
+    config[prefix] = _.merge(config[prefix] || {}, properties)
   } catch (error) {
     if (failOnError) {
       throw Error(`properties-volume failed with:'${error}`)
