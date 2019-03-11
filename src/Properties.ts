@@ -1,8 +1,8 @@
 import { Logger } from '@hmcts/nodejs-logging'
-import merge = require('lodash.merge')
 import * as path from 'path'
 import * as fs from 'fs'
 import { Options } from './index'
+const { merge } = require('lodash')
 
 const log = Logger.getLogger('applicationRunner')
 
