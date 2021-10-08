@@ -11,7 +11,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - run: yarn ci
+      - run: yarn install --frozen-lockfile
       - run: yarn run build --if-present
       - run: yarn lint
       - run: yarn test
