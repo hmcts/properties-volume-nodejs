@@ -15,12 +15,14 @@ jobs:
         id: release
         uses: manovotny/github-releases-for-automated-package-publishing-action@v1.0.0
 
-      - name: Set node version
+      - name: Set node version and build
         uses: actions/setup-node@v2
         with:
           always-auth: true
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
 
       - name: Publish version
         run: yarn publish --new-version ${{ steps.release.outputs.version }} --access public
