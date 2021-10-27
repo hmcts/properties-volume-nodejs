@@ -25,7 +25,12 @@ export function addTo (config: any, givenOptions?: Options) {
     if (failOnError) {
       throw Error(`properties-volume failed with:'${error}`)
     }
-    log.info(`Could not read properties from volume: '${mountPoint}' due to '${error}'`)
+    const localError: any = error
+    if (localError && localError.code && localError.code === 'ENOENT') {
+      log.info("Could not find properties to load, check your config, you can ignore this if you don't expect any")
+    } else {
+      log.info(`Could not read properties from volume: '${mountPoint}' due to '${error}'`)
+    }
   }
   return config
 }
@@ -44,12 +49,18 @@ function addDir (dir: string, obj: any, mountPoint: fs.PathLike): any {
 }
 
 function addFile (values: any, file: string, mountPoint: fs.PathLike, dir: string): any {
-  values[file] = readFile(mountPoint, dir, file).trim()
+  const path = readFile(mountPoint, dir, file)
+  if (path) {
+    values[file] = path.trim()
+  }
   return values
 }
 
-function readFile (mountPoint: fs.PathLike, dir: string, file: string): string {
-  return fs.readFileSync(mountPoint + '/' + dir + '/' + file, 'utf8')
+function readFile (mountPoint: fs.PathLike, dir: string, file: string): string | undefined {
+  const path = mountPoint + '/' + dir + '/' + file
+  if (!fs.lstatSync(path).isDirectory()) {
+    return fs.readFileSync(path, 'utf8')
+  }
 }
 
 function readDirectories (mountPoint: fs.PathLike, dir: string): string[] {
