@@ -30,7 +30,6 @@ export function addTo (config: any, givenOptions?: Options) {
       log.info("Could not find properties to load, check your config, you can ignore this if you don't expect any")
     } else {
       log.info(`Could not read properties from volume: '${mountPoint}' due to '${error}'`)
-      console.error(error)
     }
   }
   return config
@@ -58,7 +57,7 @@ function addFile (values: any, file: string, mountPoint: fs.PathLike, dir: strin
 }
 
 function readFile (mountPoint: fs.PathLike, dir: string, file: string): string | undefined {
-  const path = mountPoint + '/' + dir + '/' + file;
+  const path = mountPoint + '/' + dir + '/' + file
   if (!fs.lstatSync(path).isDirectory()) {
     return fs.readFileSync(path, 'utf8')
   }
