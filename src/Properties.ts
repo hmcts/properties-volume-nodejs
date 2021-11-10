@@ -58,7 +58,7 @@ function addFile (values: any, file: string, mountPoint: fs.PathLike, dir: strin
 
 function readFile (mountPoint: fs.PathLike, dir: string, file: string): string | undefined {
   const path = mountPoint + '/' + dir + '/' + file
-  if (!fs.lstatSync(path).isDirectory()) {
+  if (!fs.statSync(path).isDirectory()) {
     return fs.readFileSync(path, 'utf8')
   }
 }
