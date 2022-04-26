@@ -17,6 +17,13 @@ describe('Read properties from files on a mount or folder.', () => {
     expect(theConfig).toBe(testConfig)
   })
 
+  test('should ignore sub directories', () => {
+    const testConfig: any = {}
+    properties.addTo(testConfig, { mountPoint: '__tests__/testVolumes/secrets-sub-dir' })
+
+    expect(testConfig['secrets-sub-dir']['vaultWithSubDir']['secret-one']).toBe('abcd')
+  })
+
   test('should be able to use actual config module as expected', () => {
     expect(config.get('secrets.vaultOne.secret-one')).toBe('vaultOne.secret-one')
     expect(config.get('secrets.vaultOne.secret_Three')).toBe('vaultOne.secret_Three')
