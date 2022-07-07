@@ -23,12 +23,12 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@hmcts/nodejs-logging@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-4.0.1.tgz#a130f07b6aa23bf7d5b06f0d697e1404347b8efa"
-  integrity sha512-gVl6pExodmnI66VXLr5a9dJqhJCn8HmZF6Ss/hcAGgg7TPfqLiptWRFAzpLbelKJxXK/9Uy+QztDl5jCgaYdsg==
+"@hmcts/nodejs-logging@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-4.0.4.tgz#83d8757c6e2f28ac68b57c87b35d71f72024a5f2"
+  integrity sha512-VtrVD6ERZKWu/iy17GZXNuFq/MoK0Q8DrEhd5P30WMzsYDrSKBIr3szEV8M3Ht59oaTm3MUA6Az7PldnFWg3Ow==
   dependencies:
-    moment "^2.19.3"
+    moment "^2.29.4"
     on-finished "^2.3.0"
     winston "^2.4.5"
 
@@ -2585,10 +2585,10 @@ mocha@^5.2.0:
     mkdirp "0.5.1"
     supports-color "5.4.0"
 
-moment@^2.19.3:
-  version "2.29.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.2.tgz#00910c60b20843bcba52d37d58c628b47b1f20e4"
-  integrity sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 ms@2.0.0:
   version "2.0.0"
