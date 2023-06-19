@@ -96,13 +96,13 @@ const config = require('@hmcts/properties-volume').addTo(require('config'),{moun
 
 ### Local access to vaults
 
-You can configure the application to connect directly to the Azure Vaults specified in your applications Helm chart. *This is intended to be used locally, and not in production*.
+You can configure the application to connect directly to the Azure Vaults specified in your application's Helm chart. *This is intended to be used locally, and not in production*.
 
 ```typescript
 import * as config from 'config'
 import { addFromAzureVault } from '@hmcts/properties-volume'
 
-await propertiesVolume.addFromAzureVault(config, { pathToHelmChart: 'charts/my-app/values.yaml' })
+await addFromAzureVault(config, { pathToHelmChart: 'charts/my-app/values.yaml' })
 ```
 
 Note that this method is asnychronous and either needs to be awaited inside an async function or in a project with top level await enabled.
