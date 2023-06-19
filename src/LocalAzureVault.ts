@@ -27,7 +27,7 @@ export async function addFromAzureVault (config: any, options: LocalOptions) {
     return config
   } catch (error: any) {
     log.error(error)
-    throw Error(`properties-volume failed with:'${error}`)
+    throw Error(`properties-volume failed with: ${error}`)
   }
 }
 
