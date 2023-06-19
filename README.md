@@ -1,11 +1,8 @@
 # properties-volume-nodejs
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 <br>[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-<br>[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e9272daf4b714e4f95280916e763b6b2)](https://www.codacy.com/app/HMCTS/properties-volume-nodejs)
 <br>[![Known Vulnerabilities](https://snyk.io/test/github/hmcts/properties-volume-nodejs/badge.svg)](https://snyk.io/test/github/hmcts/properties-volume-nodejs)
 <br>[![codecov](https://codecov.io/gh/hmcts/properties-volume-nodejs/branch/master/graph/badge.svg)](https://codecov.io/gh/hmcts/properties-volume-nodejs)
-<br>[![Build Status](https://travis-ci.com/hmcts/properties-volume-nodejs.svg?branch=master)](https://travis-ci.com/hmcts/properties-volume-nodejs.svg?branch=master)  
-
 
 This module is to incorporate the integration of the Azure key-vault flex volume to node properties.
 
@@ -96,3 +93,22 @@ const config = require('@hmcts/properties-volume').addTo(require('config'),{moun
 | ------ | ----------- | ------- |
 | `mountPoint` | the folder where the properties volume exists. | `/mnt/secrets/`| 
 | `failOnError` | Should this module throw an exception if mount does not exist or there is an error reading the properties | `false` | 
+
+### Local access to vaults
+
+You can configure the application to connect directly to the Azure Vaults specified in your applications Helm chart. *This is intended to be used locally, and not in production*.
+
+```typescript
+import * as config from 'config'
+import { addFromAzureVault } from '@hmcts/properties-volume'
+
+await propertiesVolume.addFromAzureVault(config, { pathToHelmChart: 'charts/my-app/values.yaml' })
+```
+
+Note that this method is asnychronous and either needs to be awaited inside an async function or in a project with top level await enabled.
+
+| Option | Description | Default | 
+| ------ | ----------- | ------- |
+| `pathToHelmChart` | path to the values.yaml file for the Helm chart. | `N/A`| 
+| `env` | Used to calculate the vault name | `aat` | 
+

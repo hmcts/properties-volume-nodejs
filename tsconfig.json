@@ -9,10 +9,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
-      "es6",
-      "es2016.array.include",
-      "es2017.object",
-      "dom"
+      "esnext",
     ],
     "target": "es2017",
     "strict": true,

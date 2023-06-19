@@ -5,4 +5,10 @@ export interface Options {
   failOnError?: boolean
 }
 
+export interface LocalOptions {
+  pathToHelmChart: fs.PathLike
+  env?: string
+}
+
 export { addTo } from './Properties'
+export { addFromAzureVault } from './LocalAzureVault'
