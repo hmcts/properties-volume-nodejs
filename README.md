@@ -98,6 +98,8 @@ const config = require('@hmcts/properties-volume').addTo(require('config'),{moun
 
 You can configure the application to connect directly to the Azure Vaults specified in your application's Helm chart. *This is intended to be used locally, and not in production*.
 
+This method uses your local Azure AD authentication so you will need to run `az login` before running your application.
+
 ```typescript
 import * as config from 'config'
 import { addFromAzureVault } from '@hmcts/properties-volume'
