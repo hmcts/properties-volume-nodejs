@@ -5,13 +5,18 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 16, 18, 20 ]
+    name: Test v${{ matrix.node }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '12.x'
-      - run: yarn install --frozen-lockfile
+          node-version: ${{ matrix.node }}
+      - run: yarn set version berry
+      - run: yarn install --immutable
       - run: yarn build
       - run: yarn lint
       - run: yarn test
