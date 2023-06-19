@@ -107,7 +107,7 @@ import { addFromAzureVault } from '@hmcts/properties-volume'
 await addFromAzureVault(config, { pathToHelmChart: 'charts/my-app/values.yaml' })
 ```
 
-Note that this method is asnychronous and either needs to be awaited inside an async function or in a project with top level await enabled.
+Note that this method is asynchronous and either needs to be awaited inside an async function or in a project with top level await enabled.
 
 | Option | Description | Default | 
 | ------ | ----------- | ------- |
