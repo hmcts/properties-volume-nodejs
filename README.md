@@ -102,9 +102,15 @@ This method uses your local Azure AD authentication so you will need to run `az 
 
 ```typescript
 import * as config from 'config'
-import { addFromAzureVault } from '@hmcts/properties-volume'
+import { addTo, addFromAzureVault } from '@hmcts/properties-volume'
 
-await addFromAzureVault(config, { pathToHelmChart: 'charts/my-app/values.yaml' })
+async function setupConfig() {
+  if (process.env.NODE_ENV !== 'production') {
+    await addFromAzureVault(config, { pathToHelmChart: 'charts/my-app/values.yaml' });
+  } else {
+    addTo(config);
+  }
+}
 ```
 
 Note that this method is asynchronous and either needs to be awaited inside an async function or in a project with top level await enabled.
