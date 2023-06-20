@@ -1,8 +1,5 @@
 # properties-volume-nodejs
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
-<br>[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-<br>[![Known Vulnerabilities](https://snyk.io/test/github/hmcts/properties-volume-nodejs/badge.svg)](https://snyk.io/test/github/hmcts/properties-volume-nodejs)
-<br>[![codecov](https://codecov.io/gh/hmcts/properties-volume-nodejs/branch/master/graph/badge.svg)](https://codecov.io/gh/hmcts/properties-volume-nodejs)
 
 This module is to incorporate the integration of the Azure key-vault flex volume to node properties.
 
