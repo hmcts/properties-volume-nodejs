@@ -21,11 +21,10 @@ jobs:
           always-auth: true
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn set version berry
-      - run: yarn install --immutable
+      - run: yarn
       - run: yarn build
 
       - name: Publish version
-        run: npm publish
+        run: yarn publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_TOKEN }}
