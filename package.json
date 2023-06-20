@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/properties-volume",
-  "version": "0.0.14",
+  "version": "1.0.0",
   "description": "Azure key-vault flex volume to express properties integration",
   "license": "MIT",
   "repository": "https://github.com/hmcts/properties-volume-nodejs",
