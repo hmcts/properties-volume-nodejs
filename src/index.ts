@@ -1,14 +1,14 @@
-import * as fs from 'fs'
+import * as fs from 'fs';
 
 export interface Options {
-  mountPoint?: fs.PathLike
-  failOnError?: boolean
+  mountPoint?: fs.PathLike;
+  failOnError?: boolean;
 }
 
 export interface LocalOptions {
-  pathToHelmChart: fs.PathLike
-  env?: string
+  pathToHelmChart: fs.PathLike;
+  env?: string;
 }
 
-export { addTo } from './Properties'
-export { addFromAzureVault } from './LocalAzureVault'
+export { addTo } from './Properties';
+export { addFromAzureVault } from './LocalAzureVault';
