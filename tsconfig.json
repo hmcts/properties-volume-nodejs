@@ -8,28 +8,15 @@
     "noImplicitAny": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": [
-      "es6",
-      "es2016.array.include",
-      "es2017.object",
-      "dom"
-    ],
+    "lib": ["es6", "es2016.array.include", "es2017.object", "dom"],
     "target": "es2017",
     "strict": true,
     "outDir": "./lib",
     "preserveConstEnums": true,
     "removeComments": true,
-    "inlineSourceMap": true,
+    "inlineSourceMap": true
   },
-  "include": [
-    "src/**/*",
-  ],
-  "exclude": [
-    "node_modules",
-    "**/__tests__/*"
-  ],
-  "typeRoots": [
-    "node_modules/@types",
-    "src/types"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/__tests__/*"],
+  "typeRoots": ["node_modules/@types", "src/types"]
 }
