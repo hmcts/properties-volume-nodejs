@@ -1376,9 +1376,9 @@ __metadata:
   linkType: hard
 
 "@types/config@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "@types/config@npm:3.3.2"
-  checksum: e26530b3b761c655337430f36d1579d4f5af699fdb78bb33d441354662274c20e5026d94662d9d652279eab35766d20a8736214010f688554ff63239966a9d7f
+  version: 3.3.3
+  resolution: "@types/config@npm:3.3.3"
+  checksum: 26243eaf3c83b9ff72783afde1d233c2d8763d8f81ff52e78612b9c558233460d082e78c5e1c219131e8164b32f5e9cfd5fde061c989c41b66ede0f4e8ae1fce
   languageName: node
   linkType: hard
 
