@@ -1376,9 +1376,9 @@ __metadata:
   linkType: hard
 
 "@types/config@npm:^3.3.2":
-  version: 3.3.3
-  resolution: "@types/config@npm:3.3.3"
-  checksum: 26243eaf3c83b9ff72783afde1d233c2d8763d8f81ff52e78612b9c558233460d082e78c5e1c219131e8164b32f5e9cfd5fde061c989c41b66ede0f4e8ae1fce
+  version: 3.3.4
+  resolution: "@types/config@npm:3.3.4"
+  checksum: 99504bdec62fbc62bc32d6c9cefd016c9b73245cd8811d72daa4a69d3b465f340b8ef1b45a0477df4cee44a752dbea6faf09bc99aa0158f1c1007eda6697a079
   languageName: node
   linkType: hard
 
@@ -2358,11 +2358,11 @@ __metadata:
   linkType: hard
 
 "config@npm:^3.3.9":
-  version: 3.3.9
-  resolution: "config@npm:3.3.9"
+  version: 3.3.12
+  resolution: "config@npm:3.3.12"
   dependencies:
     json5: "npm:^2.2.3"
-  checksum: 157d02b8c0ab0fb0b4b9d61591fe428a24c200d2c5c5fc3e43ccc80941999a4035d4eaa6b59e1645d10f66604678c0612b86c6fc5950637f777b7c6d9b4de219
+  checksum: 496b3ef740754527cbc59d11df234f5be5b5f44511d14ca7fa6117fda0959ccd4cc6d8da2d94cb0dfcdf77d9d7aaaa34558d6dcce0a7860a3a8cf8a54c77b237
   languageName: node
   linkType: hard
 
