@@ -196,8 +196,8 @@ __metadata:
   linkType: hard
 
 "@azure/identity@npm:^4.2.1":
-  version: 4.5.0
-  resolution: "@azure/identity@npm:4.5.0"
+  version: 4.6.0
+  resolution: "@azure/identity@npm:4.6.0"
   dependencies:
     "@azure/abort-controller": "npm:^2.0.0"
     "@azure/core-auth": "npm:^1.9.0"
@@ -206,14 +206,14 @@ __metadata:
     "@azure/core-tracing": "npm:^1.0.0"
     "@azure/core-util": "npm:^1.11.0"
     "@azure/logger": "npm:^1.0.0"
-    "@azure/msal-browser": "npm:^3.26.1"
+    "@azure/msal-browser": "npm:^4.0.1"
     "@azure/msal-node": "npm:^2.15.0"
     events: "npm:^3.0.0"
     jws: "npm:^4.0.0"
     open: "npm:^8.0.0"
     stoppable: "npm:^1.1.0"
     tslib: "npm:^2.2.0"
-  checksum: 10c0/39c7f8d85e3275daee800c72a3c50e9c77af508ca5b305986c845748443784afa0cff38c53b1ebfcde868f4563778c90b3812b9ac5fc25cd6af3b9b371b1dcc9
+  checksum: 10c0/8a958eaf09405b4320342d1c69bc11856d78cf319055c4f17fde7f77e028a9239369d0b8d6959878533d6006b6d587209fd8d3db794995e3d544beb3bee7c87f
   languageName: node
   linkType: hard
 
@@ -271,12 +271,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-browser@npm:^3.26.1":
-  version: 3.26.1
-  resolution: "@azure/msal-browser@npm:3.26.1"
+"@azure/msal-browser@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@azure/msal-browser@npm:4.0.1"
   dependencies:
-    "@azure/msal-common": "npm:14.15.0"
-  checksum: 10c0/70f5062969495c6c03bb39f6703e2a02727863758cda5528b4549387f9fa6d54c3b67e790d0fca8487606fdc7339523f9290d6681250dfab87488f98a780071e
+    "@azure/msal-common": "npm:15.0.1"
+  checksum: 10c0/fc36ad5395a6ec32a853960abc0c6ffcecacfc1f308b6db7637ff7fa6d0a576811938e37d3b2966b5c53321888c2f86d45431ebe0831899f165c9d600fcb2c7d
   languageName: node
   linkType: hard
 
@@ -284,6 +284,13 @@ __metadata:
   version: 14.15.0
   resolution: "@azure/msal-common@npm:14.15.0"
   checksum: 10c0/a7af0fdd9477055c261ec065f3479b1511ccfc80723029a51737216777f11a536df3b53cf1ec80dd09dfc10e29f7a32c63c1e6b28bf3dcc17dad06e2a54cf43f
+  languageName: node
+  linkType: hard
+
+"@azure/msal-common@npm:15.0.1":
+  version: 15.0.1
+  resolution: "@azure/msal-common@npm:15.0.1"
+  checksum: 10c0/63c976b3ca55d72ec6a31753062557d6fd2ca461d5927627b370ba43572a41a4815f342f19e943d4363b35bba30aebe0dcb6b9e417430fa7b414d81a08c2cbdf
   languageName: node
   linkType: hard
 
