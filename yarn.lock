@@ -196,8 +196,8 @@ __metadata:
   linkType: hard
 
 "@azure/identity@npm:^4.2.1":
-  version: 4.8.0
-  resolution: "@azure/identity@npm:4.8.0"
+  version: 4.9.0
+  resolution: "@azure/identity@npm:4.9.0"
   dependencies:
     "@azure/abort-controller": "npm:^2.0.0"
     "@azure/core-auth": "npm:^1.9.0"
@@ -207,13 +207,10 @@ __metadata:
     "@azure/core-util": "npm:^1.11.0"
     "@azure/logger": "npm:^1.0.0"
     "@azure/msal-browser": "npm:^4.2.0"
-    "@azure/msal-node": "npm:^3.2.3"
-    events: "npm:^3.0.0"
-    jws: "npm:^4.0.0"
+    "@azure/msal-node": "npm:^3.5.0"
     open: "npm:^10.1.0"
-    stoppable: "npm:^1.1.0"
     tslib: "npm:^2.2.0"
-  checksum: 10c0/171a2172bd819cf6ff4384761454ebed0053d8038d526f92498889cb601d32d479bc50a4332108fef71dca716d77cf40f3b598c8a0f7af2accec36dff52ac229
+  checksum: 10c0/26064f8524ae4fb6b3ac83d00522ee643f1bf4e98d03afb473568cada1ee31b189f780a77ad75b75de7a1b7fe6c8c2ad130d0f71e5a3b4af009136cb01256b57
   languageName: node
   linkType: hard
 
@@ -287,21 +284,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.2.1":
-  version: 15.2.1
-  resolution: "@azure/msal-common@npm:15.2.1"
-  checksum: 10c0/5b4a14383a415b5c19c707c3136e485720ec066120bffbc1ceead1cb5b387d5f9ebdb2924975227eb67dce8718fae981fefe897704deac00f4e1fa0451b5d4da
+"@azure/msal-common@npm:15.5.1":
+  version: 15.5.1
+  resolution: "@azure/msal-common@npm:15.5.1"
+  checksum: 10c0/d5aac5be117be8dfc0e100c8b4b0738a7eb364fbc928cf4500d0c337ad4b0551ba01ef70b365f992acb2f657f1be25aaebcbfa3e0ee4ff6002afd6a5710bbd53
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^3.2.3":
-  version: 3.3.0
-  resolution: "@azure/msal-node@npm:3.3.0"
+"@azure/msal-node@npm:^3.5.0":
+  version: 3.5.1
+  resolution: "@azure/msal-node@npm:3.5.1"
   dependencies:
-    "@azure/msal-common": "npm:15.2.1"
+    "@azure/msal-common": "npm:15.5.1"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10c0/83720437dd471340a33362ae58dc3ebcb92b476095e0d95190c592936c426a95f1fca65142380c440fa68303dffc4a391cad83b02099ca608a982b417af031e2
+  checksum: 10c0/d338e115e9059eb3c6ffeee497592dfcb14feb2642fae1af699705afa2a29892f5514bc645ce854081ffe41ff6d9825cad5e5e0fe0df7e27ed3f6f230f2ce357
   languageName: node
   linkType: hard
 
@@ -3291,13 +3288,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"events@npm:^3.0.0":
-  version: 3.3.0
-  resolution: "events@npm:3.3.0"
-  checksum: 10c0/d6b6f2adbccbcda74ddbab52ed07db727ef52e31a61ed26db9feb7dc62af7fc8e060defa65e5f8af9449b86b52cc1a1f6a79f2eafcf4e62add2b7a1fa4a432f6
-  languageName: node
-  linkType: hard
-
 "execa@npm:^5.0.0":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
@@ -5122,17 +5112,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jwa@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "jwa@npm:2.0.0"
-  dependencies:
-    buffer-equal-constant-time: "npm:1.0.1"
-    ecdsa-sig-formatter: "npm:1.0.11"
-    safe-buffer: "npm:^5.0.1"
-  checksum: 10c0/6baab823b93c038ba1d2a9e531984dcadbc04e9eb98d171f4901b7a40d2be15961a359335de1671d78cb6d987f07cbe5d350d8143255977a889160c4d90fcc3c
-  languageName: node
-  linkType: hard
-
 "jws@npm:^3.2.2":
   version: 3.2.2
   resolution: "jws@npm:3.2.2"
@@ -5140,16 +5119,6 @@ __metadata:
     jwa: "npm:^1.4.1"
     safe-buffer: "npm:^5.0.1"
   checksum: 10c0/e770704533d92df358adad7d1261fdecad4d7b66fa153ba80d047e03ca0f1f73007ce5ed3fbc04d2eba09ba6e7e6e645f351e08e5ab51614df1b0aa4f384dfff
-  languageName: node
-  linkType: hard
-
-"jws@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "jws@npm:4.0.0"
-  dependencies:
-    jwa: "npm:^2.0.0"
-    safe-buffer: "npm:^5.0.1"
-  checksum: 10c0/f1ca77ea5451e8dc5ee219cb7053b8a4f1254a79cb22417a2e1043c1eb8a569ae118c68f24d72a589e8a3dd1824697f47d6bd4fb4bebb93a3bdf53545e721661
   languageName: node
   linkType: hard
 
@@ -6475,13 +6444,6 @@ __metadata:
   dependencies:
     escape-string-regexp: "npm:^2.0.0"
   checksum: 10c0/651c9f87667e077584bbe848acaecc6049bc71979f1e9a46c7b920cad4431c388df0f51b8ad7cfd6eed3db97a2878d0fc8b3122979439ea8bac29c61c95eec8a
-  languageName: node
-  linkType: hard
-
-"stoppable@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "stoppable@npm:1.1.0"
-  checksum: 10c0/ba91b65e6442bf6f01ce837a727ece597a977ed92a05cb9aea6bf446c5e0dcbccc28f31b793afa8aedd8f34baaf3335398d35f903938d5493f7fbe386a1e090e
   languageName: node
   linkType: hard
 
