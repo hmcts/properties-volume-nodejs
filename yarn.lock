@@ -931,7 +931,7 @@ __metadata:
     "@types/node": "npm:^20.14.9"
     "@typescript-eslint/eslint-plugin": "npm:7.18.0"
     "@typescript-eslint/parser": "npm:7.18.0"
-    config: "npm:^3.3.12"
+    config: "npm:^4.0.0"
     eslint: "npm:^8.52.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-import: "npm:^2.29.1"
@@ -2591,12 +2591,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:^3.3.12":
-  version: 3.3.12
-  resolution: "config@npm:3.3.12"
+"config@npm:^4.0.0":
+  version: 4.1.1
+  resolution: "config@npm:4.1.1"
   dependencies:
     json5: "npm:^2.2.3"
-  checksum: 10c0/496b3ef740754527cbc59d11df234f5be5b5f44511d14ca7fa6117fda0959ccd4cc6d8da2d94cb0dfcdf77d9d7aaaa34558d6dcce0a7860a3a8cf8a54c77b237
+  checksum: 10c0/661c0c1b6a7ace9d1a8cae29fa95f329c76cd05c22a1dac7834c1fb4ce2d6c62b1fb9900d06a808cdfeb2ce16b325a0c7a5ea15ac7c58ae5b1c1feb434fedf0b
   languageName: node
   linkType: hard
 
