@@ -28,4 +28,4 @@ jobs:
       - name: Publish version
         run: yarn npm publish --access public
         env:
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_API_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_API_TOKEN }}
