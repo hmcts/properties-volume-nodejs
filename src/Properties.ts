@@ -2,7 +2,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import * as path from 'path';
 import * as fs from 'fs';
 import { Options } from './index';
-const { merge } = require('lodash');
+import { merge } from 'lodash';
 
 const log = Logger.getLogger('applicationRunner');
 
