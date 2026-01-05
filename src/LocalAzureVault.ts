@@ -4,8 +4,7 @@ import * as yaml from 'js-yaml';
 import { Logger } from '@hmcts/nodejs-logging';
 import * as fs from 'fs';
 import { LocalOptions } from './index';
-
-const { merge } = require('lodash');
+import { merge } from 'lodash';
 
 const log = Logger.getLogger('applicationRunner');
 
