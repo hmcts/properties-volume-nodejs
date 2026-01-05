@@ -48,6 +48,10 @@
     "ts-node": "^10.9.2",
     "typescript": "5.5.2"
   },
+  "resolutions": {
+    "jws": "^3.2.3",
+    "form-data": "^4.0.4"
+  },
   "engines": {
     "node": ">=16.0.0"
   },
