@@ -52,7 +52,7 @@
     "typescript": "5.9.3"
   },
   "resolutions": {
-    "jws": "3.2.3",
+    "jws": "4.0.1",
     "form-data": "4.0.4"
   },
   "engines": {
