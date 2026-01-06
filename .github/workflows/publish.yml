@@ -2,9 +2,14 @@ name: release
 on:
   release:
     types: [created]
+
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -18,14 +23,15 @@ jobs:
       - name: Set node version and build
         uses: actions/setup-node@v4
         with:
-          always-auth: true
           node-version: 18
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
+
       - run: corepack enable
-      - run: yarn
+      - run: yarn install --immutable
       - run: yarn build
 
-      - name: Publish version
+      - name: Ensure npm supports trusted publishing
+        run: npm i -g npm@^11.5.1
+
+      - name: Publish version (OIDC)
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_TOKEN }}
