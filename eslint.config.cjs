@@ -11,10 +11,8 @@ const prettierPlugin = require("eslint-plugin-prettier");
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
 module.exports = [
-  // replaces "eslint:recommended"
   js.configs.recommended,
 
-  // reuse your existing "extends" (legacy -> flat)
   ...compat.extends(
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -30,15 +28,11 @@ module.exports = [
     languageOptions: {
       ecmaVersion: 2018,
       sourceType: "module",
-
-      // TypeScript
       parser: tsParser,
       parserOptions: {
         project: "./tsconfig.json",
         tsconfigRootDir: __dirname,
       },
-
-      // replaces env + globals
       globals: {
         ...globals.browser,
         ...globals.node,
@@ -47,14 +41,12 @@ module.exports = [
         SharedArrayBuffer: "readonly",
       },
     },
-
     plugins: {
       "@typescript-eslint": tsPlugin,
       import: importPlugin,
       jest: jestPlugin,
       prettier: prettierPlugin,
     },
-
     rules: {
       "@typescript-eslint/array-type": "error",
       "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -62,7 +54,6 @@ module.exports = [
       "@typescript-eslint/no-shadow": "error",
       "@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true }],
       "@typescript-eslint/no-var-requires": "off",
-
       curly: "error",
       eqeqeq: "error",
       "import/no-duplicates": "error",
@@ -90,7 +81,6 @@ module.exports = [
     },
   },
 
-  // Optional but recommended: only apply Jest globals/rules to test files
   {
     files: ["**/*.{test,spec}.{js,ts,tsx}", "**/__tests__/**/*.{js,ts,tsx}"],
     languageOptions: { globals: { ...globals.jest } },
