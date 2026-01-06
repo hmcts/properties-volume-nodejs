@@ -48,7 +48,7 @@ describe('Read properties from files on a mount or folder.', () => {
   });
 
   test('should throw correct exception if /mnt/secrets does not exist', () => {
-    expect(() => properties.addTo(config, { failOnError: true })).toThrowError(
+    expect(() => properties.addTo(config, { failOnError: true })).toThrow(
       "properties-volume failed with:'Error: ENOENT: no such file or directory, scandir '/mnt/secrets/'"
     );
   });
@@ -58,7 +58,7 @@ describe('Read properties from files on a mount or folder.', () => {
   });
 
   test('should throw error if does not have a folder in the mountPoint path', () => {
-    expect(() => properties.addTo(config, { mountPoint: '/', failOnError: true })).toThrowError(
+    expect(() => properties.addTo(config, { mountPoint: '/', failOnError: true })).toThrow(
       "Invalid properties mount point supplied: '/'"
     );
   });

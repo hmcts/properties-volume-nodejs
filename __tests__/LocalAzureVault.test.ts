@@ -63,6 +63,6 @@ describe('Read properties from Azure.', () => {
         await properties.addFromAzureVault(config, {
           pathToHelmChart: '__tests__/chart/does-not-exist.yaml',
         })
-    ).rejects.toThrowError("helm chart not found at: '__tests__/chart/does-not-exist.yaml'");
+    ).rejects.toThrow("helm chart not found at: '__tests__/chart/does-not-exist.yaml'");
   });
 });
