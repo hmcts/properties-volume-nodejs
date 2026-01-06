@@ -21,7 +21,7 @@ jobs:
         uses: manovotny/github-releases-for-automated-package-publishing-action@v2.0.1
 
       - name: Set node version and build
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
