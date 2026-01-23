@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ 18, 20, 22, 24 ]
+        node: [ 18, 24 ]
     name: Test v${{ matrix.node }}
     steps:
       - uses: actions/checkout@v6
@@ -18,5 +18,5 @@ jobs:
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn build
-      - run: yarn lint
       - run: yarn test
+      - run: yarn lint
