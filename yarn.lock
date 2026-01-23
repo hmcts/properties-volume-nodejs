@@ -1210,20 +1210,20 @@ __metadata:
     "@types/config": "npm:^3.3.5"
     "@types/jest": "npm:^30.0.0"
     "@types/js-yaml": "npm:^4.0.9"
-    "@types/lodash": "npm:^4.17.21"
+    "@types/lodash": "npm:^4.17.23"
     "@types/node": "npm:^18.0.0"
     "@typescript-eslint/eslint-plugin": "npm:8.53.1"
     "@typescript-eslint/parser": "npm:8.53.1"
-    config: "npm:^4.1.1"
+    config: "npm:^4.2.0"
     eslint: "npm:^9.39.2"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-import: "npm:^2.32.0"
     eslint-plugin-jest: "npm:^29.12.1"
-    eslint-plugin-prettier: "npm:^5.5.4"
+    eslint-plugin-prettier: "npm:^5.5.5"
     jest: "npm:30.2.0"
     js-yaml: "npm:^4.1.1"
-    lodash: "npm:^4.17.21"
-    prettier: "npm:^3.7.4"
+    lodash: "npm:^4.17.23"
+    prettier: "npm:^3.8.1"
     rimraf: "npm:^6.1.2"
     ts-jest: "npm:^29.4.6"
     ts-node: "npm:^10.9.2"
@@ -1916,7 +1916,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.17.21":
+"@types/lodash@npm:^4.17.23":
   version: 4.17.23
   resolution: "@types/lodash@npm:4.17.23"
   checksum: 10c0/9d9cbfb684e064a2b78aab9e220d398c9c2a7d36bc51a07b184ff382fa043a99b3d00c16c7f109b4eb8614118f4869678dbae7d5c6700ed16fb9340e26cc0bf6
@@ -3148,7 +3148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:^4.1.1":
+"config@npm:^4.2.0":
   version: 4.2.0
   resolution: "config@npm:4.2.0"
   dependencies:
@@ -3936,7 +3936,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^5.5.4":
+"eslint-plugin-prettier@npm:^5.5.5":
   version: 5.5.5
   resolution: "eslint-plugin-prettier@npm:5.5.5"
   dependencies:
@@ -6105,7 +6105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.14, lodash@npm:^4.17.21":
+"lodash@npm:^4.17.14, lodash@npm:^4.17.21, lodash@npm:^4.17.23":
   version: 4.17.23
   resolution: "lodash@npm:4.17.23"
   checksum: 10c0/1264a90469f5bb95d4739c43eb6277d15b6d9e186df4ac68c3620443160fc669e2f14c11e7d8b2ccf078b81d06147c01a8ccced9aab9f9f63d50dcf8cace6bf6
@@ -6872,7 +6872,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.7.4":
+"prettier@npm:^3.8.1":
   version: 3.8.1
   resolution: "prettier@npm:3.8.1"
   bin:
