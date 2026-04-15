@@ -112,8 +112,22 @@ async function setupConfig() {
 
 Note that this method is asynchronous and either needs to be awaited inside an async function or in a project with top level await enabled.
 
-| Option | Description | Default | 
+| Option | Description | Default |
 | ------ | ----------- | ------- |
-| `pathToHelmChart` | path to the values.yaml file for the Helm chart. | `N/A`| 
-| `env` | Used to calculate the vault name | `aat` | 
+| `pathToHelmChart` | path to the values.yaml file for the Helm chart. | `N/A`|
+| `env` | Used to calculate the vault name | `aat` |
+| `omit` | Array of vault secret names (matched against the Azure-side `name` declared in the chart) to skip when loading chart-declared secrets. Does not apply to `additional`. | `[]` |
+| `additional` | `Map<vaultSecretName, targetConfigName>` of extra secrets to load on top of those declared in the chart. Fetched against the first vault listed in the chart's `keyVaults` block and written to `config.secrets.<firstVault>.<targetConfigName>`. | `undefined` |
+
+Example using both options:
+
+```typescript
+await addFromAzureVault(config, {
+  pathToHelmChart: 'charts/my-app/values.yaml',
+  omit: ['database-url', 'something-i-dont-want-for-local-dev'],
+  additional: new Map([
+    ['idam-test-username', 'test.username'],
+  ]),
+});
+```
 

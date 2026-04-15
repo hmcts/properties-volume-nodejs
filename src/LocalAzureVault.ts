@@ -10,6 +10,8 @@ const log = Logger.getLogger('applicationRunner');
 
 export async function addFromAzureVault(config: any, options: LocalOptions): Promise<any> {
   const env = options.env || 'aat';
+  const omit = options.omit || [];
+  const additional = options.additional;
 
   log.info(`Attempting to read properties from volume: '${options.pathToHelmChart}' using env: '${env}'`);
 
@@ -19,7 +21,7 @@ export async function addFromAzureVault(config: any, options: LocalOptions): Pro
 
   try {
     const chart: any = yaml.load(fs.readFileSync(options.pathToHelmChart, 'utf8'));
-    const secrets = await readVaultsFromAzure(chart, env);
+    const secrets = await readVaultsFromAzure(chart, env, omit, additional);
 
     config['secrets'] = merge(config['secrets'] || {}, secrets);
 
@@ -30,7 +32,7 @@ export async function addFromAzureVault(config: any, options: LocalOptions): Pro
   }
 }
 
-async function readVaultsFromAzure(chart: any, env: string) {
+async function readVaultsFromAzure(chart: any, env: string, omit: string[], additional?: Map<string, string>) {
   const credential = new DefaultAzureCredential();
   const vaultSecrets = deepSearch(chart, 'keyVaults');
 
@@ -38,8 +40,18 @@ async function readVaultsFromAzure(chart: any, env: string) {
     throw new Error('No keyVaults found in helm chart');
   }
 
-  const vaultPromises = Object.keys(vaultSecrets).map(vaultName =>
-    readVaultFromAzure(vaultSecrets[vaultName], vaultName, env, credential)
+  const vaultNames = Object.keys(vaultSecrets);
+  const firstVaultName = vaultNames[0];
+
+  const vaultPromises = vaultNames.map(vaultName =>
+    readVaultFromAzure(
+      vaultSecrets[vaultName],
+      vaultName,
+      env,
+      credential,
+      omit,
+      vaultName === firstVaultName ? additional : undefined
+    )
   );
 
   const vaults = await Promise.all(vaultPromises);
@@ -51,14 +63,22 @@ async function readVaultFromAzure(
   vaultSecrets: any,
   vaultName: string,
   env: string,
-  credential: DefaultAzureCredential
+  credential: DefaultAzureCredential,
+  omit: string[],
+  additional?: Map<string, string>
 ) {
   const vaultUri = `https://${vaultName}-${env}.vault.azure.net`;
   const client = new SecretClient(vaultUri, credential);
 
   const chartSecrets: StructuredOrUnstructuredSecret[] = vaultSecrets?.secrets || [];
-  const secretPromises = chartSecrets.map(secret => normalizeSecret(secret)).map(secret => loadSecret(client, secret));
+  const filteredChartSecrets = chartSecrets.filter(secret => {
+    const name = typeof secret === 'string' ? secret : secret?.name;
+    return !omit.includes(name);
+  });
 
+  const extras: StructuredSecret[] = additional ? Array.from(additional, ([name, alias]) => ({ name, alias })) : [];
+  const allSecrets: StructuredOrUnstructuredSecret[] = [...filteredChartSecrets, ...extras];
+  const secretPromises = allSecrets.map(secret => normalizeSecret(secret)).map(secret => loadSecret(client, secret));
   const loadedSecrets = await Promise.all(secretPromises);
 
   return { [vaultName]: merge({}, ...loadedSecrets) };

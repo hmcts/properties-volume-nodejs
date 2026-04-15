@@ -16,6 +16,7 @@ const mockSecrets: Record<string, string> = {
   secret_Two: 'vaultOne.secret_Two',
   'secret-three': 'vaultTwo.secret-three',
   secret_Four: 'vaultTwo.secret_Four',
+  'extra-secret': 'vaultOne.extra-secret',
 };
 
 jest.mock('@azure/keyvault-secrets', () => {
@@ -64,5 +65,40 @@ describe('Read properties from Azure.', () => {
           pathToHelmChart: '__tests__/chart/does-not-exist.yaml',
         })
     ).rejects.toThrow("helm chart not found at: '__tests__/chart/does-not-exist.yaml'");
+  });
+
+  test('should skip chart-declared secrets listed in omit', async () => {
+    const testConfig: any = {};
+    await properties.addFromAzureVault(testConfig, {
+      pathToHelmChart: '__tests__/chart/values.yaml',
+      omit: ['secret-one'],
+    });
+
+    expect(testConfig['secrets']['vaultOne']['SECRET_ONE_ALIAS']).toBe(undefined);
+    expect(testConfig['secrets']['vaultOne']['secret_Two']).toBe('vaultOne.secret_Two');
+    expect(testConfig['secrets']['vaultTwo']['secret-three']).toBe('vaultTwo.secret-three');
+    expect(testConfig['secrets']['vaultTwo']['secret_Four']).toBe('vaultTwo.secret_Four');
+  });
+
+  test('should load extra secrets from additional into the first vault', async () => {
+    const testConfig: any = {};
+    await properties.addFromAzureVault(testConfig, {
+      pathToHelmChart: '__tests__/chart/values.yaml',
+      additional: new Map([['extra-secret', 'EXTRA_ALIAS']]),
+    });
+
+    expect(testConfig['secrets']['vaultOne']['EXTRA_ALIAS']).toBe('vaultOne.extra-secret');
+    expect(testConfig['secrets']['vaultTwo']['EXTRA_ALIAS']).toBe(undefined);
+  });
+
+  test('should not apply omit to additional secrets', async () => {
+    const testConfig: any = {};
+    await properties.addFromAzureVault(testConfig, {
+      pathToHelmChart: '__tests__/chart/values.yaml',
+      omit: ['extra-secret'],
+      additional: new Map([['extra-secret', 'EXTRA_ALIAS']]),
+    });
+
+    expect(testConfig['secrets']['vaultOne']['EXTRA_ALIAS']).toBe('vaultOne.extra-secret');
   });
 });

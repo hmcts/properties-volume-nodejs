@@ -8,6 +8,8 @@ export interface Options {
 export interface LocalOptions {
   pathToHelmChart: fs.PathLike;
   env?: string;
+  omit?: string[];
+  additional?: Map<string, string>;
 }
 
 export { addTo } from './Properties';
