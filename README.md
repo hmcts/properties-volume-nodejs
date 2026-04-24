@@ -95,7 +95,13 @@ const config = require('@hmcts/properties-volume').addTo(require('config'),{moun
 
 You can configure the application to connect directly to the Azure Vaults specified in your application's Helm chart. *This is intended to be used locally, and not in production*.
 
-This method uses your local Azure AD authentication so you will need to run `az login` before running your application.
+This method shells out to the Azure CLI to read secrets, so local usage requires:
+
+- Azure CLI installed and available as `az` on your `PATH`.
+- An authenticated Azure CLI session, for example by running `az login` before running your application.
+- Access to read secrets from the target Key Vaults.
+
+Secrets are read using `az keyvault secret show` against vault names calculated from the Helm chart vault name and `env` option, for example `myVault-aat`.
 
 ```typescript
 import * as config from 'config'
@@ -130,4 +136,3 @@ await addFromAzureVault(config, {
   ]),
 });
 ```
-
