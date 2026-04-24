@@ -1,7 +1,6 @@
-import { DefaultAzureCredential } from '@azure/identity';
-import { SecretClient } from '@azure/keyvault-secrets';
 import * as yaml from 'js-yaml';
 import { Logger } from '@hmcts/nodejs-logging';
+import { execFile } from 'child_process';
 import * as fs from 'fs';
 import { LocalOptions } from './index';
 import { merge } from 'lodash';
@@ -28,12 +27,12 @@ export async function addFromAzureVault(config: any, options: LocalOptions): Pro
     return config;
   } catch (error: any) {
     log.error(error);
-    throw Error(`properties-volume failed with: ${error}`);
+    const message = error instanceof Error ? error.message : error;
+    throw Error(`properties-volume failed with: ${message}`);
   }
 }
 
 async function readVaultsFromAzure(chart: any, env: string, omit: string[], additional?: Map<string, string>) {
-  const credential = new DefaultAzureCredential();
   const vaultSecrets = deepSearch(chart, 'keyVaults');
 
   if (!vaultSecrets) {
@@ -48,7 +47,6 @@ async function readVaultsFromAzure(chart: any, env: string, omit: string[], addi
       vaultSecrets[vaultName],
       vaultName,
       env,
-      credential,
       omit,
       vaultName === firstVaultName ? additional : undefined
     )
@@ -63,12 +61,10 @@ async function readVaultFromAzure(
   vaultSecrets: any,
   vaultName: string,
   env: string,
-  credential: DefaultAzureCredential,
   omit: string[],
   additional?: Map<string, string>
 ) {
-  const vaultUri = `https://${vaultName}-${env}.vault.azure.net`;
-  const client = new SecretClient(vaultUri, credential);
+  const azureVaultName = `${vaultName}-${env}`;
 
   const chartSecrets: StructuredOrUnstructuredSecret[] = vaultSecrets?.secrets || [];
   const filteredChartSecrets = chartSecrets.filter(secret => {
@@ -78,7 +74,9 @@ async function readVaultFromAzure(
 
   const extras: StructuredSecret[] = additional ? Array.from(additional, ([name, alias]) => ({ name, alias })) : [];
   const allSecrets: StructuredOrUnstructuredSecret[] = [...filteredChartSecrets, ...extras];
-  const secretPromises = allSecrets.map(secret => normalizeSecret(secret)).map(secret => loadSecret(client, secret));
+  const secretPromises = allSecrets
+    .map(secret => normalizeSecret(secret))
+    .map(secret => loadSecret(azureVaultName, secret));
   const loadedSecrets = await Promise.all(secretPromises);
 
   return { [vaultName]: merge({}, ...loadedSecrets) };
@@ -105,9 +103,87 @@ function normalizeSecret(secret: any): StructuredSecret {
   };
 }
 
-async function loadSecret(client: SecretClient, secret: StructuredSecret): Promise<Record<string, string | undefined>> {
-  const secretValue = await client.getSecret(secret.name);
-  return { [secret.alias]: secretValue.value };
+async function loadSecret(azureVaultName: string, secret: StructuredSecret): Promise<Record<string, string>> {
+  const secretValue = await readSecretFromAzureCli(azureVaultName, secret.name);
+  return { [secret.alias]: secretValue };
+}
+
+async function readSecretFromAzureCli(azureVaultName: string, secretName: string): Promise<string> {
+  const stdout = await runAzureCli(
+    [
+      'keyvault',
+      'secret',
+      'show',
+      '--vault-name',
+      azureVaultName,
+      '--name',
+      secretName,
+      '--query',
+      'value',
+      '--output',
+      'json',
+      '--only-show-errors',
+    ],
+    { azureVaultName, secretName }
+  );
+
+  return parseSecretValue(stdout, azureVaultName, secretName);
+}
+
+function runAzureCli(args: string[], context: AzureCliSecretContext): Promise<string> {
+  return new Promise((resolve, reject) => {
+    execFile('az', args, { encoding: 'utf8' }, (error, stdout, stderr) => {
+      if (error) {
+        reject(toAzureCliError(error, stderr, context));
+        return;
+      }
+
+      resolve(stdout);
+    });
+  });
+}
+
+function parseSecretValue(stdout: string, azureVaultName: string, secretName: string): string {
+  try {
+    const value = JSON.parse(stdout);
+
+    if (typeof value === 'string') {
+      return value;
+    }
+  } catch {
+    throw new Error(
+      `Azure CLI returned an unexpected response for secret '${secretName}' from vault '${azureVaultName}'. ` +
+        "Expected a JSON string from 'az keyvault secret show --query value --output json'."
+    );
+  }
+
+  throw new Error(
+    `Azure CLI returned an unexpected response for secret '${secretName}' from vault '${azureVaultName}'. ` +
+      "Expected a JSON string from 'az keyvault secret show --query value --output json'."
+  );
+}
+
+function toAzureCliError(
+  error: Error & { code?: string | number | null },
+  stderr: string,
+  context: AzureCliSecretContext
+): Error {
+  const action = "Install Azure CLI, run 'az login', and confirm access to the Key Vault.";
+
+  if (error.code === 'ENOENT') {
+    return new Error(
+      `Azure CLI executable 'az' was not found while reading secret '${context.secretName}' from vault ` +
+        `'${context.azureVaultName}'. ${action}`
+    );
+  }
+
+  const details = stderr.trim() || error.message;
+  const separator = /[.!?]$/.test(details) ? ' ' : '. ';
+
+  return new Error(
+    `Azure CLI failed to read secret '${context.secretName}' from vault '${context.azureVaultName}': ` +
+      `${details}${separator}${action}`
+  );
 }
 
 type StructuredSecret = {
@@ -116,3 +192,8 @@ type StructuredSecret = {
 };
 
 type StructuredOrUnstructuredSecret = string | StructuredSecret;
+
+type AzureCliSecretContext = {
+  azureVaultName: string;
+  secretName: string;
+};

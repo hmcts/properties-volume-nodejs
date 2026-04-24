@@ -1,15 +1,8 @@
 process.env['NODE_CONFIG_DIR'] = __dirname + '/config/';
 
 import * as config from 'config';
+import { execFile } from 'child_process';
 import * as properties from '../src';
-
-jest.mock('@azure/identity', () => {
-  return {
-    DefaultAzureCredential: jest.fn(() => {
-      return {};
-    }),
-  };
-});
 
 const mockSecrets: Record<string, string> = {
   'secret-one': 'vaultOne.secret-one',
@@ -19,21 +12,28 @@ const mockSecrets: Record<string, string> = {
   'extra-secret': 'vaultOne.extra-secret',
 };
 
-jest.mock('@azure/keyvault-secrets', () => {
+jest.mock('child_process', () => {
   return {
-    SecretClient: jest.fn(() => {
-      return {
-        getSecret: jest.fn((key: string) => {
-          return {
-            value: mockSecrets[key] as string,
-          };
-        }),
-      };
-    }),
+    execFile: jest.fn(),
   };
 });
 
+type ExecFileCallback = (error: NodeJS.ErrnoException | null, stdout: string, stderr: string) => void;
+
+const mockedExecFile = execFile as unknown as jest.Mock;
+
 describe('Read properties from Azure.', () => {
+  beforeEach(() => {
+    mockedExecFile.mockReset();
+    mockedExecFile.mockImplementation(
+      (_command: string, args: string[], _options: Record<string, string>, callback: ExecFileCallback) => {
+        const secretName = args[args.indexOf('--name') + 1];
+
+        callback(null, JSON.stringify(mockSecrets[secretName]) + '\n', '');
+      }
+    );
+  });
+
   test('should use chart to load secrets', async () => {
     const testConfig: any = {};
     const theConfig = await properties.addFromAzureVault(testConfig, {
@@ -47,6 +47,25 @@ describe('Read properties from Azure.', () => {
     expect(testConfig['secrets']['vaultTwo']['secret_Four']).toBe('vaultTwo.secret_Four');
 
     expect(theConfig).toBe(testConfig);
+    expect(mockedExecFile).toHaveBeenCalledWith(
+      'az',
+      [
+        'keyvault',
+        'secret',
+        'show',
+        '--vault-name',
+        'vaultOne-aat',
+        '--name',
+        'secret-one',
+        '--query',
+        'value',
+        '--output',
+        'json',
+        '--only-show-errors',
+      ],
+      { encoding: 'utf8' },
+      expect.any(Function)
+    );
   });
 
   test('should be able to use actual config module as expected', async () => {
@@ -58,12 +77,34 @@ describe('Read properties from Azure.', () => {
     expect(config.get('secrets.vaultOne.secret_Two')).toBe('vaultOne.secret_Two');
   });
 
-  test('should throw correct exception if the chart does not exist', () => {
-    expect(
-      async () =>
-        await properties.addFromAzureVault(config, {
-          pathToHelmChart: '__tests__/chart/does-not-exist.yaml',
-        })
+  test('should throw an actionable exception if Azure CLI authentication fails', async () => {
+    mockedExecFile.mockImplementation(
+      (_command: string, _args: string[], _options: Record<string, string>, callback: ExecFileCallback) => {
+        const error = new Error('Command failed') as NodeJS.ErrnoException;
+
+        error.code = '1';
+        callback(error, '', 'ERROR: Please run az login to setup account.');
+      }
+    );
+
+    await expect(
+      properties.addFromAzureVault(
+        {},
+        {
+          pathToHelmChart: '__tests__/chart/values.yaml',
+        }
+      )
+    ).rejects.toThrow(
+      "properties-volume failed with: Azure CLI failed to read secret 'secret-one' from vault 'vaultOne-aat': " +
+        "ERROR: Please run az login to setup account. Install Azure CLI, run 'az login', and confirm access to the Key Vault."
+    );
+  });
+
+  test('should throw correct exception if the chart does not exist', async () => {
+    await expect(
+      properties.addFromAzureVault(config, {
+        pathToHelmChart: '__tests__/chart/does-not-exist.yaml',
+      })
     ).rejects.toThrow("helm chart not found at: '__tests__/chart/does-not-exist.yaml'");
   });
 
